@@ -1398,6 +1398,8 @@ void TextureAnalysis::CalculateScore(double age, std::map<Type, Features> &featu
 
         if (age < 60) {
             age = 0;
+        } else {
+            age = 1;
         }
 
         double intensity_H = features_map.at(Type::Mean).H;
@@ -1407,15 +1409,23 @@ void TextureAnalysis::CalculateScore(double age, std::map<Type, Features> &featu
 
         if (intensity_H < 51.39) {
             intensity_H = 0;
+        } else {
+            intensity_H = 1;
         }
         if (intensity_V < 51.39) {
             intensity_V = 0;
+        } else {
+            intensity_V = 1;
         }
         if (intensity_LD < 51.39) {
             intensity_LD = 0;
+        } else {
+            intensity_LD = 1;
         }
         if (intensity_RD < 51.39) {
             intensity_RD = 0;
+        } else {
+            intensity_RD = 1;
         }
 
         double entropy_H = features_map.at(Type::Entropy).H;
@@ -1425,15 +1435,23 @@ void TextureAnalysis::CalculateScore(double age, std::map<Type, Features> &featu
 
         if (entropy_H < 7.119) {
             entropy_H = 0;
+        } else {
+            entropy_H = 1;
         }
         if (entropy_V < 7.119) {
             entropy_V = 0;
+        } else {
+            entropy_V = 1;
         }
         if (entropy_LD < 7.119) {
             entropy_LD = 0;
+        } else {
+            entropy_LD = 1;
         }
         if (entropy_RD < 7.119) {
             entropy_RD = 0;
+        } else {
+            entropy_RD = 1;
         }
 
         double contrast_H = features_map.at(Type::Contrast).H;
@@ -1443,15 +1461,23 @@ void TextureAnalysis::CalculateScore(double age, std::map<Type, Features> &featu
 
         if (contrast_H < 714.91) {
             contrast_H = 0;
+        } else {
+            contrast_H = 1;
         }
         if (contrast_V < 714.91) {
             contrast_V = 0;
+        } else {
+            contrast_V = 1;
         }
         if (contrast_LD < 714.91) {
             contrast_LD = 0;
+        } else {
+            contrast_LD = 1;
         }
         if (contrast_RD < 714.91) {
             contrast_RD = 0;
+        } else {
+            contrast_RD = 1;
         }
 
         double f_H = params[0] * age + params[1] * intensity_H + params[2] * entropy_H +
