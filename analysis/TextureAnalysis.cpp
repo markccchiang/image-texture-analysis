@@ -1390,12 +1390,6 @@ void TextureAnalysis::CalculateScore(double age, std::map<Type, Features> &featu
         features_map.count(Type::Contrast)) {
         std::vector<double> params = {1.138, -1.814, 1.416, 1.714};
 
-        //        std::cout << "Calculate the Score with parameters:\n";
-        //        std::cout << "age = " << age << "\n";
-        //        for (int i = 0; i < params.size(); ++i) {
-        //            std::cout << "params[" << i << "] = " << params[i] << "\n";
-        //        }
-
         if (age < 60) {
             age = 0;
         } else {
@@ -1406,88 +1400,46 @@ void TextureAnalysis::CalculateScore(double age, std::map<Type, Features> &featu
         double intensity_V = features_map.at(Type::Mean).V;
         double intensity_LD = features_map.at(Type::Mean).LD;
         double intensity_RD = features_map.at(Type::Mean).RD;
+        double intensity = (intensity_H + intensity_V + intensity_LD + intensity_RD) / 4.0;
 
-        if (intensity_H < 51.39) {
-            intensity_H = 0;
+        if (intensity < 51.39) {
+            intensity = 0;
         } else {
-            intensity_H = 1;
-        }
-        if (intensity_V < 51.39) {
-            intensity_V = 0;
-        } else {
-            intensity_V = 1;
-        }
-        if (intensity_LD < 51.39) {
-            intensity_LD = 0;
-        } else {
-            intensity_LD = 1;
-        }
-        if (intensity_RD < 51.39) {
-            intensity_RD = 0;
-        } else {
-            intensity_RD = 1;
+            intensity = 1;
         }
 
         double entropy_H = features_map.at(Type::Entropy).H;
         double entropy_V = features_map.at(Type::Entropy).V;
         double entropy_LD = features_map.at(Type::Entropy).LD;
         double entropy_RD = features_map.at(Type::Entropy).RD;
+        double entropy = (entropy_H + entropy_V + entropy_LD + entropy_RD) / 4.0;
 
-        if (entropy_H < 7.119) {
-            entropy_H = 0;
+        if (entropy < 7.119) {
+            entropy = 0;
         } else {
-            entropy_H = 1;
-        }
-        if (entropy_V < 7.119) {
-            entropy_V = 0;
-        } else {
-            entropy_V = 1;
-        }
-        if (entropy_LD < 7.119) {
-            entropy_LD = 0;
-        } else {
-            entropy_LD = 1;
-        }
-        if (entropy_RD < 7.119) {
-            entropy_RD = 0;
-        } else {
-            entropy_RD = 1;
+            entropy = 1;
         }
 
         double contrast_H = features_map.at(Type::Contrast).H;
         double contrast_V = features_map.at(Type::Contrast).V;
         double contrast_LD = features_map.at(Type::Contrast).LD;
         double contrast_RD = features_map.at(Type::Contrast).RD;
+        double contrast = (contrast_H + contrast_V + contrast_LD + contrast_RD) / 4.0 / 10.0;
 
-        if (contrast_H < 714.91) {
-            contrast_H = 0;
+        if (contrast < 7.1491) {
+            contrast = 0;
         } else {
-            contrast_H = 1;
-        }
-        if (contrast_V < 714.91) {
-            contrast_V = 0;
-        } else {
-            contrast_V = 1;
-        }
-        if (contrast_LD < 714.91) {
-            contrast_LD = 0;
-        } else {
-            contrast_LD = 1;
-        }
-        if (contrast_RD < 714.91) {
-            contrast_RD = 0;
-        } else {
-            contrast_RD = 1;
+            contrast = 1;
         }
 
-        double f_H = params[0] * age + params[1] * intensity_H + params[2] * entropy_H +
-                     params[3] * contrast_H;
-        double f_V = params[0] * age + params[1] * intensity_V + params[2] * entropy_V +
-                     params[3] * contrast_V;
-        double f_LD = params[0] * age + params[1] * intensity_LD + params[2] * entropy_LD +
-                      params[3] * contrast_LD;
-        double f_RD = params[0] * age + params[1] * intensity_RD + params[2] * entropy_RD +
-                      params[3] * contrast_RD;
+        double f_H = params[0] * age + params[1] * intensity + params[2] * entropy +
+                     params[3] * contrast;
+        double f_V = params[0] * age + params[1] * intensity + params[2] * entropy +
+                     params[3] * contrast;
+        double f_LD = params[0] * age + params[1] * intensity + params[2] * entropy +
+                      params[3] * contrast;
+        double f_RD = params[0] * age + params[1] * intensity + params[2] * entropy +
+                      params[3] * contrast;
 
         features_map[Type::Score](f_H, f_V, f_LD, f_RD);
         features_map[Type::Age](age, age, age, age);
