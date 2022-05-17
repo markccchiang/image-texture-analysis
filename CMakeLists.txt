@@ -3,9 +3,13 @@ cmake_minimum_required(VERSION 3.16)
 project(image-texture-analysis)
 
 set(CMAKE_CXX_STANDARD 17)
+
+set(CMAKE_OSX_ARCHITECTURES "arm64")
+
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-set(Qt6_DIR "/usr/local/opt/qt/lib/cmake/Qt6")
+#set(Qt6_DIR "/usr/local/opt/qt/lib/cmake/Qt6")
+#set(Qt6_DIR "/opt/homebrew/Cellar/qt/6.2.3_1/lib/cmake/Qt6")
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
